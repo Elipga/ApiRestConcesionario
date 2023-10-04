@@ -30,24 +30,8 @@ public class CochesController {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
     }
+      
 
-   
-
-    @GetMapping ("coches/{id}")
-    public ResponseEntity<CochesOutput> listarCocheId(@PathVariable String id){
-        try {
-            CochesOutput c = cochesService.getCocheId(id);
-            return ResponseEntity.ok(c);
-        } catch (IsEmptyException e) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        } catch (InvalidException e) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        } catch (NullException e) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        } catch (NotExistsException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
 
     @PostMapping("/coches")
     public ResponseEntity<String> anyadirCoche(@RequestBody CocheInput coche){
