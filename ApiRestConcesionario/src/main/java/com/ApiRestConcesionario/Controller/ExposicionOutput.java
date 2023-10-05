@@ -9,8 +9,12 @@ public class ExposicionOutput {
     public ExposicionOutput(String id) throws IsEmptyException, NullException {
         validateNull(id);
         this.id = id;
-        this.nombre = nombre;
+        this.nombre = "nombre";
+    }
 
+    public ExposicionOutput(String id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
     public String getId() {
@@ -24,5 +28,13 @@ public class ExposicionOutput {
     public void validateNull(String parametro) throws NullException, IsEmptyException {
         if (parametro == null) throw new NullException(parametro + " no puede ser null");
         if (parametro.isEmpty()) throw new IsEmptyException(parametro + "no puede ser null");
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

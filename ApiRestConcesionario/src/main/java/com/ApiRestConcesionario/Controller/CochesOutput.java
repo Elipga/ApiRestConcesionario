@@ -23,6 +23,9 @@ public class CochesOutput {
     public CochesOutput(String matricula) throws IsEmptyException, NullException {
         validateNull(matricula);
         this.matricula = matricula;
+        this.marca = "marca";
+        this.modelo = "modelo";
+        this.anyo = 1900;
     }
 
     public CochesOutput(String matricula, String marca) throws IsEmptyException, NullException {

@@ -43,7 +43,6 @@ public class ExposicionController {
         }
     }
 
-
     @GetMapping("/exposiciones/{id}/coches")
     public ResponseEntity<List<CochesOutput>> listarCochesExpo(@PathVariable String id){
         try {
@@ -90,6 +89,5 @@ public class ExposicionController {
         } catch (NotExistsException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-
     }
 }

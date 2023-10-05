@@ -65,7 +65,7 @@ public class ExposicionService {
         for (Exposicion exposicion: exposiciones){ //recorre la lista de exposiciones
             if(exposicion.getId().equalsIgnoreCase(id)){ //encuentra la exposicion
                 exposicion.setNombre(exposicionUpdate.getNombre()); //actualiza el nombre
-                return new ExposicionOutput(exposicion.getId());
+                return new ExposicionOutput(exposicion.getId(), exposicion.getNombre());
             }
         }
         throw new NotExistsException("La exposición no existe");
