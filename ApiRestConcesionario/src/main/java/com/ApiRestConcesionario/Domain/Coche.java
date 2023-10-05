@@ -16,10 +16,12 @@ public class Coche {
 
 
     public Coche(String matricula, String marca, String modelo, int anyo) throws IsEmptyException, InvalidException, NullException {
-        validateNull(matricula);
+        if (matricula == null) throw new NullException("Matrícula no puede ser null");
+        if (matricula.isEmpty()) throw new IsEmptyException("Matrícula no puede ser null");
         this.matricula = matricula;
         this.marca = marca;
-        validateNull(modelo);
+        if (modelo == null) throw new NullException("Modelo no puede ser null");
+        if (modelo.isEmpty()) throw new IsEmptyException("Modelo no puede ser null");
         this.modelo = modelo;
         if((anyo < 1900) && (anyo > LocalDate.now().getYear())) throw new InvalidException("El año debe ser may");
         this.anyo = anyo;
@@ -43,11 +45,6 @@ public class Coche {
 
     public void setMarca(String marca) {
         this.marca = marca;
-    }
-
-    public void validateNull(String parametro) throws NullException, IsEmptyException {
-        if (parametro == null) throw new NullException(parametro + " no puede ser null");
-        if (parametro.isEmpty()) throw new IsEmptyException(parametro + "no puede ser null");
     }
 
     public void setMatricula(String matricula) {

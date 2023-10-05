@@ -3,11 +3,11 @@ package com.ApiRestConcesionario.Controller;
 public class ExposicionOutput {
 
     private String id;
-
     private String nombre;
 
     public ExposicionOutput(String id) throws IsEmptyException, NullException {
-        validateNull(id);
+        if (id == null) throw new NullException("Id no puede ser null");
+        if (id.isEmpty()) throw new IsEmptyException("Id no puede ser null");
         this.id = id;
         this.nombre = "nombre";
     }
@@ -23,11 +23,6 @@ public class ExposicionOutput {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void validateNull(String parametro) throws NullException, IsEmptyException {
-        if (parametro == null) throw new NullException(parametro + " no puede ser null");
-        if (parametro.isEmpty()) throw new IsEmptyException(parametro + "no puede ser null");
     }
 
     public String getNombre() {

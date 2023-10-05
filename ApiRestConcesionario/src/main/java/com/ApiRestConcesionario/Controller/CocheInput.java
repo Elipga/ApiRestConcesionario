@@ -1,16 +1,16 @@
 package com.ApiRestConcesionario.Controller;
 
-import com.ApiRestConcesionario.Domain.Coche;
-
 public class CocheInput {
     private String matricula;
     private String modelo;
 
 
     public CocheInput(String matricula, String modelo) throws IsEmptyException, NullException, InvalidException {
-        validateNull(matricula);
+        if (matricula == null) throw new NullException("Matrícula no puede ser null");
+        if (matricula.isEmpty()) throw new IsEmptyException("Matrícula no puede ser null");
         this.matricula = matricula;
-        validateNull(modelo);
+        if (modelo == null) throw new NullException("Modelo no puede ser null");
+        if (modelo.isEmpty()) throw new IsEmptyException("Modelo no puede ser null");
         this.modelo = modelo;
     }
 
@@ -20,11 +20,6 @@ public class CocheInput {
 
     public String getModelo() {
         return modelo;
-    }
-
-    public void validateNull(String parametro) throws NullException, IsEmptyException {
-        if (parametro == null) throw new NullException(parametro + " no puede ser null");
-        if (parametro.isEmpty()) throw new IsEmptyException(parametro + "no puede ser null");
     }
 
     public void setMatricula(String matricula) {

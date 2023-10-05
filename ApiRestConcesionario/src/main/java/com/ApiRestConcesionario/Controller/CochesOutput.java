@@ -10,10 +10,12 @@ public class CochesOutput {
     private int anyo;
 
     public CochesOutput(String matricula, String marca, String modelo, int anyo) throws NullException, IsEmptyException, InvalidException {
-        validateNull(matricula);
+        if (matricula == null) throw new NullException("Matrícula no puede ser null");
+        if (matricula.isEmpty()) throw new IsEmptyException("Matrícula no puede ser null");
         this.matricula = matricula;
         this.marca = marca;
-        validateNull(modelo);
+        if (modelo == null) throw new NullException("Modelo no puede ser null");
+        if (modelo.isEmpty()) throw new IsEmptyException("Modelo no puede ser null");
         this.modelo = modelo;
         if ((anyo < 1900) || (anyo > LocalDate.now().getYear())) throw new InvalidException("El año debe ser may");
         this.anyo = anyo;
@@ -21,7 +23,8 @@ public class CochesOutput {
 
 
     public CochesOutput(String matricula) throws IsEmptyException, NullException {
-        validateNull(matricula);
+        if (matricula == null) throw new NullException("Matrícula no puede ser null");
+        if (matricula.isEmpty()) throw new IsEmptyException("Matrícula no puede ser null");
         this.matricula = matricula;
         this.marca = "marca";
         this.modelo = "modelo";
@@ -29,9 +32,11 @@ public class CochesOutput {
     }
 
     public CochesOutput(String matricula, String marca) throws IsEmptyException, NullException {
-        validateNull(matricula);
+        if (matricula == null) throw new NullException("Matrícula no puede ser null");
+        if (matricula.isEmpty()) throw new IsEmptyException("Matrícula no puede ser null");
         this.matricula = matricula;
-        validateNull(marca);
+        if (marca == null) throw new NullException("Marca no puede ser null");
+        if (marca.isEmpty()) throw new IsEmptyException("Marca no puede ser null");
         this.marca = marca;
     }
 
@@ -66,13 +71,6 @@ public class CochesOutput {
     public void setAnyo(int anyo) {
         this.anyo = anyo;
     }
-
-    public void validateNull(String parametro) throws NullException, IsEmptyException {
-        if (parametro == null) throw new NullException(parametro + " no puede ser null");
-        if (parametro.isEmpty()) throw new IsEmptyException(parametro + "no puede ser null");
-    }
-
-
 }
 
 
