@@ -26,4 +26,12 @@ public class CocheInput {
         if (parametro == null) throw new NullException(parametro + " no puede ser null");
         if (parametro.isEmpty()) throw new IsEmptyException(parametro + "no puede ser null");
     }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
 }

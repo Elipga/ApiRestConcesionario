@@ -6,13 +6,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class CochesService {
     private List<Coche> coches = new ArrayList<>();
-
-
 
     public List<CochesOutput> getCoches() throws IsEmptyException, InvalidException, NullException {
         List<CochesOutput> cochesOutput = new ArrayList<>();
@@ -23,22 +20,32 @@ public class CochesService {
         return cochesOutput;
     }
 
-
-    public CochesOutput getCocheId(String id) throws IsEmptyException, InvalidException, NullException, NotExistsException {
+    public CochesOutput getCocheId(String matricula) throws IsEmptyException, InvalidException, NullException, NotExistsException {
         for (Coche coche: coches){
-            if(coche.getId().equals(id))
+            if(coche.getMatricula().equals(matricula))
                 return new CochesOutput(coche.getMatricula());
         }
         throw new NotExistsException ("El coche no existe");
     }
 
-
-    public void anyadirCoche(CocheInput input) throws CocheAlreadyExists, IsEmptyException, InvalidException, NullException {
-        Coche c = new Coche(UUID.randomUUID().toString(), input.getModelo()); //UUIDs (Identificadores Únicos Universales)
+    public void anyadirCoche(CocheInput input) throws AlreadyExistsException, IsEmptyException, InvalidException, NullException {
+        Coche c = new Coche(input.getMatricula(), "marca" ,input.getModelo(), 1900); //UUIDs (Identificadores Únicos Universales)
         for (Coche coche : coches) {
             if (coche.getMatricula().equalsIgnoreCase(coche.getMatricula()))
-                throw new CocheAlreadyExists ("El coche ya existe");
+                throw new AlreadyExistsException("El coche ya existe");
         }
         coches.add(c);
+    }
+
+    public CochesOutput updateCoche(String matricula, CocheUpdate cocheUpdate) throws NotExistsException, IsEmptyException, InvalidException, NullException {
+        for (Coche coche: coches){ //recorre los coches
+            if(coche.getMatricula().equalsIgnoreCase(matricula)){ //encuentra el coche
+                coche.setMarca(cocheUpdate.getMarca()); //actualiza la marca
+                coche.setModelo(cocheUpdate.getModelo());
+                return new CochesOutput(coche.getMatricula(), coche.getMarca(),
+                        coche.getModelo(), coche.getAnyo());
+            }
+        }
+        throw new NotExistsException("El coche no existe");
     }
 }
