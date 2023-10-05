@@ -29,7 +29,7 @@ public class CochesService {
     }
 
     public void anyadirCoche(CocheInput input) throws AlreadyExistsException, IsEmptyException, InvalidException, NullException {
-        Coche c = new Coche(input.getMatricula(), "marca" ,input.getModelo(), 1900); //UUIDs (Identificadores Únicos Universales)
+        Coche c = new Coche(input.getMatricula(), "marca" ,input.getModelo(), 1900);
         for (Coche coche : coches) {
             if (coche.getMatricula().equalsIgnoreCase(coche.getMatricula()))
                 throw new AlreadyExistsException("El coche ya existe");

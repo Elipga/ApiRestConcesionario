@@ -6,8 +6,12 @@ public class ExposicionInput {
 
     private String nombre;
 
-    public ExposicionInput(String id, String nombre) {
+    public ExposicionInput(String id, String nombre) throws NullException, IsEmptyException {
+        if (id == null) throw new NullException("Id no puede ser null");
+        if (id.isEmpty()) throw new IsEmptyException("Id no puede ser null");
         this.id = id;
+        if (nombre == null) throw new NullException("Matrícula no puede ser null");
+        if (nombre.isEmpty()) throw new IsEmptyException("Matrícula no puede ser null");
         this.nombre = nombre;
     }
 
