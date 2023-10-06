@@ -1,4 +1,4 @@
-package com.ApiRestConcesionario.Controller;
+package com.ApiRestConcesionario.Exception;
 
 public class NullException extends Exception {
     public NullException(String message) {

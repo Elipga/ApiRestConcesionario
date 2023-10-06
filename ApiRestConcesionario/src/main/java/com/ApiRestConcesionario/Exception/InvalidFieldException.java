@@ -1,4 +1,4 @@
-package com.ApiRestConcesionario.Controller;
+package com.ApiRestConcesionario.Exception;
 
 public class InvalidFieldException extends Exception {
     public InvalidFieldException(String message) {

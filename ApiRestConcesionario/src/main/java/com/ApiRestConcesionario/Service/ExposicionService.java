@@ -3,6 +3,7 @@ package com.ApiRestConcesionario.Service;
 import com.ApiRestConcesionario.Controller.*;
 import com.ApiRestConcesionario.Domain.Coche;
 import com.ApiRestConcesionario.Domain.Exposicion;
+import com.ApiRestConcesionario.Exception.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,15 +47,15 @@ public class ExposicionService {
 
     public void anyadirCocheAExpo(String id, CocheInput cocheInput) throws AlreadyExistsException, IsEmptyException, InvalidException, NullException, NotExistsException {
        boolean cocheanyadido = false;
-       for(Exposicion exposicion: exposiciones){
-           if (exposicion.getId().equalsIgnoreCase(id)){
-               for(Coche coche: exposicion.getCochesExpo()){
-                   if(coche.getMatricula().equalsIgnoreCase(cocheInput.getMatricula())){
+       for(Exposicion exposicion: exposiciones){ //recorre la lista de exposiciones
+           if (exposicion.getId().equalsIgnoreCase(id)){ //encuentra la exposición
+               for(Coche coche: exposicion.getCochesExpo()){ //recorre los coches de esa exposición
+                   if(coche.getMatricula().equalsIgnoreCase(cocheInput.getMatricula())){ //comprueba que no exista
                        throw new AlreadyExistsException("El coche ya está en la exposición");
                    }
                }
                exposicion.getCochesExpo().add(new Coche(cocheInput.getMatricula(), " ",
-                       cocheInput.getModelo(), 1900));
+                       cocheInput.getModelo(), 1900)); //añade el coche a la lista
                cocheanyadido = true;
            }
        }

@@ -1,4 +1,4 @@
-package com.ApiRestConcesionario.Service;
+package com.ApiRestConcesionario.Exception;
 
 public class AlreadyExistsException extends Exception {
 

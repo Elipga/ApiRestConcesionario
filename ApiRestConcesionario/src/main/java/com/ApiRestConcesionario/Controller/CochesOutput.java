@@ -1,13 +1,21 @@
 package com.ApiRestConcesionario.Controller;
 
+import com.ApiRestConcesionario.Exception.InvalidException;
+import com.ApiRestConcesionario.Exception.IsEmptyException;
+import com.ApiRestConcesionario.Exception.NullException;
+import com.fasterxml.jackson.annotation.*;
+
 import java.time.LocalDate;
+
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY) //los valores nulos o vacíos no los imprime en Json
 
 public class CochesOutput {
     private String matricula;
     private String marca;
     private String modelo;
-
     private int anyo;
+
 
     public CochesOutput(String matricula, String marca, String modelo, int anyo) throws NullException, IsEmptyException, InvalidException {
         if (matricula == null) throw new NullException("Matrícula no puede ser null");
@@ -21,14 +29,10 @@ public class CochesOutput {
         this.anyo = anyo;
     }
 
-
     public CochesOutput(String matricula) throws IsEmptyException, NullException {
         if (matricula == null) throw new NullException("Matrícula no puede ser null");
         if (matricula.isEmpty()) throw new IsEmptyException("Matrícula no puede ser null");
         this.matricula = matricula;
-        this.marca = "marca";
-        this.modelo = "modelo";
-        this.anyo = 1900;
     }
 
     public CochesOutput(String matricula, String marca) throws IsEmptyException, NullException {
@@ -52,7 +56,8 @@ public class CochesOutput {
         return modelo;
     }
 
-    public int getAnyo() {
+    public Object getAnyo() {
+        if(anyo == 0) return null; //si el año es 0 devuelve null, por tanto no se imprime en Json
         return anyo;
     }
 

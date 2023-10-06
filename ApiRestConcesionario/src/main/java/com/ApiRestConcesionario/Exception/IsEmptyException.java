@@ -1,4 +1,4 @@
-package com.ApiRestConcesionario.Controller;
+package com.ApiRestConcesionario.Exception;
 
 public class IsEmptyException extends Exception {
     public IsEmptyException(String message) {

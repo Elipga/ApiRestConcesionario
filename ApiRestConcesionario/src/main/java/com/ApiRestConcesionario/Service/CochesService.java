@@ -2,6 +2,7 @@ package com.ApiRestConcesionario.Service;
 
 import com.ApiRestConcesionario.Controller.*;
 import com.ApiRestConcesionario.Domain.Coche;
+import com.ApiRestConcesionario.Exception.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,28 +14,28 @@ public class CochesService {
 
     public List<CochesOutput> getCoches() throws IsEmptyException, InvalidException, NullException {
         List<CochesOutput> cochesOutput = new ArrayList<>();
-        for(Coche coche: coches) {
+        for(Coche coche: coches) { //recorre la lista de coches
             cochesOutput.add((new CochesOutput(coche.getMatricula(), coche.getMarca(), coche.getModelo(),
-                    coche.getAnyo())));
+                    coche.getAnyo()))); //añade los coches a lista de CocheOutput con los parámetros
         }
         return cochesOutput;
     }
 
     public CochesOutput getCocheId(String matricula) throws IsEmptyException, InvalidException, NullException, NotExistsException {
-        for (Coche coche: coches){
-            if(coche.getMatricula().equals(matricula))
-                return new CochesOutput(coche.getMatricula());
+        for (Coche coche: coches){ //recorre la lista de coches
+            if(coche.getMatricula().equals(matricula)) //encuentra el coche
+                return new CochesOutput(coche.getMatricula()); //devuelve la matrícula
         }
         throw new NotExistsException ("El coche no existe");
     }
 
     public void anyadirCoche(CocheInput input) throws AlreadyExistsException, IsEmptyException, InvalidException, NullException {
-        Coche c = new Coche(input.getMatricula(), "marca" ,input.getModelo(), 1900);
-        for (Coche coche : coches) {
+        Coche c = new Coche(input.getMatricula(), "marca" ,input.getModelo(), 1900); //crea un nuevo coche
+        for (Coche coche : coches) { //recorre la lista para comprobar que no exista
             if (coche.getMatricula().equalsIgnoreCase(coche.getMatricula()))
                 throw new AlreadyExistsException("El coche ya existe");
         }
-        coches.add(c);
+        coches.add(c); //añade el coche a la lista
     }
 
     public CochesOutput updateCoche(String matricula, CocheUpdate cocheUpdate) throws NotExistsException, IsEmptyException, InvalidException, NullException {

@@ -1,8 +1,8 @@
 package com.ApiRestConcesionario.Domain;
 
-import com.ApiRestConcesionario.Controller.InvalidException;
-import com.ApiRestConcesionario.Controller.IsEmptyException;
-import com.ApiRestConcesionario.Controller.NullException;
+import com.ApiRestConcesionario.Exception.InvalidException;
+import com.ApiRestConcesionario.Exception.IsEmptyException;
+import com.ApiRestConcesionario.Exception.NullException;
 
 import java.time.LocalDate;
 

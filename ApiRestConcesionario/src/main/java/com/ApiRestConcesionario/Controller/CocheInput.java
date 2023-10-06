@@ -1,11 +1,14 @@
 package com.ApiRestConcesionario.Controller;
 
+import com.ApiRestConcesionario.Exception.IsEmptyException;
+import com.ApiRestConcesionario.Exception.NullException;
+
 public class CocheInput {
     private String matricula;
     private String modelo;
 
 
-    public CocheInput(String matricula, String modelo) throws IsEmptyException, NullException, InvalidException {
+    public CocheInput(String matricula, String modelo) throws IsEmptyException, NullException {
         if (matricula == null) throw new NullException("Matrícula no puede ser null");
         if (matricula.isEmpty()) throw new IsEmptyException("Matrícula no puede ser null");
         this.matricula = matricula;

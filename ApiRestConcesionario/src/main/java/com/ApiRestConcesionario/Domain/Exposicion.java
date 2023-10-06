@@ -1,8 +1,8 @@
 package com.ApiRestConcesionario.Domain;
 
-import com.ApiRestConcesionario.Controller.IsEmptyException;
-import com.ApiRestConcesionario.Controller.NullException;
-import com.ApiRestConcesionario.Service.AlreadyExistsException;
+import com.ApiRestConcesionario.Exception.IsEmptyException;
+import com.ApiRestConcesionario.Exception.NullException;
+import com.ApiRestConcesionario.Exception.AlreadyExistsException;
 
 import java.util.ArrayList;
 import java.util.List;
