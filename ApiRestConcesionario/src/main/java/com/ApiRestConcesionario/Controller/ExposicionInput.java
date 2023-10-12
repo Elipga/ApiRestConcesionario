@@ -1,5 +1,6 @@
 package com.ApiRestConcesionario.Controller;
 
+import com.ApiRestConcesionario.Domain.Exposicion;
 import com.ApiRestConcesionario.Exception.IsEmptyException;
 import com.ApiRestConcesionario.Exception.NullException;
 
@@ -16,6 +17,10 @@ public class ExposicionInput {
         if (nombre == null) throw new NullException("Matrícula no puede ser null");
         if (nombre.isEmpty()) throw new IsEmptyException("Matrícula no puede ser null");
         this.nombre = nombre;
+    }
+
+    public static Exposicion getExposicion(ExposicionInput exposicionInput) throws IsEmptyException, NullException {
+        return new Exposicion(exposicionInput.getId(), exposicionInput.getNombre());
     }
 
     public String getId() {

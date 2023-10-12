@@ -6,46 +6,49 @@ import com.ApiRestConcesionario.Exception.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class CochesService {
-    private List<Coche> coches = new ArrayList<>();
+    private HashMap<String,Coche> coches = new HashMap<>();
+
+    public CochesService(HashMap<String, Coche> coches) {
+        this.coches = coches;
+    }
+
+    public CochesService() {
+        this.coches = coches;
+    }
 
     public List<CochesOutput> getCoches() throws IsEmptyException, InvalidException, NullException {
         List<CochesOutput> cochesOutput = new ArrayList<>();
-        for(Coche coche: coches) { //recorre la lista de coches
-            cochesOutput.add((new CochesOutput(coche.getMatricula(), coche.getMarca(), coche.getModelo(),
-                    coche.getAnyo()))); //añade los coches a lista de CocheOutput con los parámetros
+        if (coches.isEmpty()) throw new NullException("No hay coches en el concesionario");
+        for (Coche coche : coches.values()) { //se obtienen los valores de cada coche
+            cochesOutput.add(CochesOutput.getCoche(coche)); //añade los coches a lista de CocheOutput con los parámetros
         }
         return cochesOutput;
     }
 
-    public CochesOutput getCocheId(String matricula) throws IsEmptyException, InvalidException, NullException, NotExistsException {
-        for (Coche coche: coches){ //recorre la lista de coches
-            if(coche.getMatricula().equals(matricula)) //encuentra el coche
-                return new CochesOutput(coche.getMatricula()); //devuelve la matrícula
-        }
-        throw new NotExistsException ("El coche no existe");
+    public CocheOutputMatricula getCocheId(String matricula) throws IsEmptyException, InvalidException, NullException, NotExistsException {
+        if(coches.containsKey(matricula))
+            return new CocheOutputMatricula(matricula);
+        throw new NotExistsException("El coche no existe");
     }
 
     public void anyadirCoche(CocheInput input) throws AlreadyExistsException, IsEmptyException, InvalidException, NullException {
-        Coche c = new Coche(input.getMatricula(), "marca" ,input.getModelo(), 1900); //crea un nuevo coche
-        for (Coche coche : coches) { //recorre la lista para comprobar que no exista
-            if (coche.getMatricula().equalsIgnoreCase(coche.getMatricula()))
-                throw new AlreadyExistsException("El coche ya existe");
-        }
-        coches.add(c); //añade el coche a la lista
+        Coche c = CocheInput.getCoche(input);
+        if(coches.containsKey(input.getMatricula()))
+            throw new AlreadyExistsException("El coche ya existe");
+        coches.put(input.getMatricula(), c);
     }
 
     public CochesOutput updateCoche(String matricula, CocheUpdate cocheUpdate) throws NotExistsException, IsEmptyException, InvalidException, NullException {
-        for (Coche coche: coches){ //recorre los coches
-            if(coche.getMatricula().equalsIgnoreCase(matricula)){ //encuentra el coche
-                coche.setMarca(cocheUpdate.getMarca()); //actualiza la marca
-                coche.setModelo(cocheUpdate.getModelo());
-                return new CochesOutput(coche.getMatricula(), coche.getMarca(),
-                        coche.getModelo(), coche.getAnyo());
-            }
+        if(coches.containsKey(matricula)){
+            Coche c = coches.get(matricula);
+            c.setMarca(cocheUpdate.getMarca());
+            c.setModelo(cocheUpdate.getModelo());
+            return CochesOutput.getCoche(c);
         }
         throw new NotExistsException("El coche no existe");
     }

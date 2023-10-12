@@ -4,10 +4,6 @@ public class CocheUpdate {
     private String marca;
     private String modelo;
 
-    public CocheUpdate(String marca) {
-        this.marca = marca;
-    }
-
     public CocheUpdate() {
         this.marca = marca;
     }
@@ -21,15 +17,7 @@ public class CocheUpdate {
         return modelo;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
     public String getMarca() {
         return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
     }
 }

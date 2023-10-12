@@ -1,5 +1,7 @@
 package com.ApiRestConcesionario.Controller;
 
+import com.ApiRestConcesionario.Domain.Coche;
+import com.ApiRestConcesionario.Exception.InvalidException;
 import com.ApiRestConcesionario.Exception.IsEmptyException;
 import com.ApiRestConcesionario.Exception.NullException;
 
@@ -17,6 +19,10 @@ public class CocheInput {
         this.modelo = modelo;
     }
 
+    public static Coche getCoche (CocheInput c) throws IsEmptyException, InvalidException, NullException {
+        return new Coche (c.getMatricula(), "marca" ,c.getModelo(), 1900);
+    }
+
     public String getMatricula() {
         return matricula;
     }
@@ -25,11 +31,4 @@ public class CocheInput {
         return modelo;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
 }

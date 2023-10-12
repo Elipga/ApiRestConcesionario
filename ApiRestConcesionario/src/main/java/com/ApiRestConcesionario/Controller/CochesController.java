@@ -35,9 +35,9 @@ public class CochesController {
     }
 
     @GetMapping("coches/{matricula}")
-    public ResponseEntity<CochesOutput> listarCocheId(@PathVariable String matricula) {
+    public ResponseEntity<CocheOutputMatricula> listarCocheId(@PathVariable String matricula) {
         try {
-            CochesOutput c = cochesService.getCocheId(matricula);
+            CocheOutputMatricula c = cochesService.getCocheId(matricula);
             return ResponseEntity.ok(c);
         } catch (IsEmptyException e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
@@ -49,7 +49,6 @@ public class CochesController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
 
     @PostMapping("/coches")
     public ResponseEntity<String> anyadirCoche(@RequestBody CocheInput coche) {

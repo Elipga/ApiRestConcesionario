@@ -1,5 +1,6 @@
 package com.ApiRestConcesionario.Controller;
 
+import com.ApiRestConcesionario.Domain.Exposicion;
 import com.ApiRestConcesionario.Exception.IsEmptyException;
 import com.ApiRestConcesionario.Exception.NullException;
 import com.fasterxml.jackson.annotation.JsonInclude;
