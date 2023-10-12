@@ -1,12 +1,9 @@
 package com.ApiRestConcesionario.Domain;
 
 import com.ApiRestConcesionario.Controller.CocheInput;
-import com.ApiRestConcesionario.Controller.CochesOutput;
 import com.ApiRestConcesionario.Exception.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Exposicion {
 
@@ -27,20 +24,6 @@ public class Exposicion {
         this.id = id;
         this.nombre = nombre;
         this.cochesExpo = cochesExpo;
-    }
-
-    public void anyadirCoche(CocheInput cocheInput) throws AlreadyExistsException, IsEmptyException, InvalidException, NullException, NotExistsException {
-        Coche c = CocheInput.getCoche(cocheInput);
-        if (cochesExpo.containsKey(cocheInput.getMatricula())) {
-            throw new AlreadyExistsException("El coche ya existe");
-        }
-        cochesExpo.put(cocheInput.getMatricula(), c);
-    }
-
-    public Coche buscarCoche(String matricula) throws NotExistsException {
-        if(cochesExpo.containsKey(matricula))
-            return cochesExpo.get(matricula);
-        throw new NotExistsException("El coche no se encuentra en la exposición");
     }
 
     public String getId() {

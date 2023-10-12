@@ -28,6 +28,8 @@ public class ExposicionController {
             return ResponseEntity.ok(exposiciones);
         } catch (NullException e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        } catch (IsEmptyException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         }
     }
 
@@ -101,13 +103,12 @@ public class ExposicionController {
         }
     }
 
-    /*@PutMapping("exposiciones/{id}")
-    public ResponseEntity<ExposicionOutput> modificarExpo(@PathVariable String id, @RequestBody ExposicionUpdate exposicionUpdate) {
-        ExposicionOutput modificado = null;
+    @PutMapping("exposiciones/{id}")
+    public ResponseEntity<ExposicionOutputNombre> modificarExpo(@PathVariable String id, @RequestBody ExposicionUpdate exposicionUpdate) {
+        ExposicionOutputNombre modificado = null;
         try {
             modificado = exposicionService.updateExposicion(id, exposicionUpdate);
             return ResponseEntity.ok(modificado);
-
         } catch (IsEmptyException e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
         } catch (NullException e) {
@@ -115,5 +116,5 @@ public class ExposicionController {
         } catch (NotExistsException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-    }*/
+    }
 }

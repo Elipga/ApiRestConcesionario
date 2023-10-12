@@ -40,11 +40,11 @@ public class ExposicionService {
         return expoCoches;
     }
 
-    public List<ExposicionOutput> getExposiciones() throws NullException {
+    public List<ExposicionOutput> getExposiciones() throws NullException, IsEmptyException {
         List<ExposicionOutput> exposicionOutputs = new ArrayList<>();
         if (exposiciones.isEmpty()) throw new NullException("No hay exposiciones en el concesionario");
         for (Exposicion exposicion : exposiciones.values()) { //se obtienen los valores de cada expo
-            exposicionOutputs.add(new ExposicionOutput(exposicion.getId(), exposicion.getNombre()) ); //añade los coches a lista de CocheOutput con los parámetros
+            exposicionOutputs.add(new ExposicionOutput(exposicion.getId()) ); //añade los coches a lista de CocheOutput con los parámetros
         }
         return exposicionOutputs;
     }
@@ -84,6 +84,7 @@ public class ExposicionService {
     }
 
     public void anyadirCocheAExpo(String id, CocheInput cocheInput) throws AlreadyExistsException, IsEmptyException, InvalidException, NullException, NotExistsException {
+        boolean existe = true;
         Coche c = CocheInput.getCoche(cocheInput);
         if (exposicionesYcoches.containsKey(id)) {
             HashMap<String, Coche> cochesExposicion = exposicionesYcoches.get(id);
@@ -91,17 +92,18 @@ public class ExposicionService {
                 throw new AlreadyExistsException("El coche ya existe");
             }
             exposicionesYcoches.get(id).put(cocheInput.getMatricula(), c);
+            existe = false;
         }
-        throw new NotExistsException("La exposición no existe");
+        if (existe == true) throw new NotExistsException("La exposición no existe");
     }
 
-    public ExposicionOutput updateExposicion(String id, ExposicionUpdate exposicionUpdate) throws NotExistsException, IsEmptyException, NullException {
-        ExposicionOutput exposicionOutput = new ExposicionOutput(exposicionUpdate.getNombre());
+    public ExposicionOutputNombre updateExposicion(String id, ExposicionUpdate exposicionUpdate) throws NotExistsException, IsEmptyException, NullException {
+        ExposicionOutputNombre exposicionOutputNombre = new ExposicionOutputNombre(exposicionUpdate.getNombre());
         if(exposicionesYcoches.containsKey(id)){
             Exposicion e = exposiciones.get(id);
             e.setNombre(exposicionUpdate.getNombre());
-            return exposicionOutput;
+            return exposicionOutputNombre;
         }
-        throw new NotExistsException("El coche no existe");
+        throw new NotExistsException("La exposición no existe");
     }
 }
