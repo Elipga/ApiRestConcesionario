@@ -7,9 +7,7 @@ import com.ApiRestConcesionario.Exception.NullException;
 public class Coche {
     private String matricula;
     private String marca;
-
     private String modelo;
-
     private int anyo;
 
     public Coche(String matricula) throws NullException, IsEmptyException {
@@ -50,5 +48,4 @@ public class Coche {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-
 }

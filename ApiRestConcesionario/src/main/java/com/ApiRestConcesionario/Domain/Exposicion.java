@@ -8,7 +8,6 @@ import java.util.HashMap;
 public class Exposicion {
 
     private String id;
-
     private String nombre;
     private HashMap<String, Coche> cochesExpo = new HashMap<>();
 
@@ -45,5 +44,4 @@ public class Exposicion {
     public HashMap<String, Coche> getCochesExpo() {
         return cochesExpo;
     }
-
 }

@@ -45,8 +45,8 @@ public class CochesOutput {
         return modelo;
     }
 
-    public CochesOutput(int anyo) {
-        this.anyo = anyo;
+    public int getAnyo() {
+        return anyo;
     }
 }
 
