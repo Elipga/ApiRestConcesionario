@@ -70,31 +70,28 @@ public class ExposicionService {
     }
 
     public List<CocheOutputMarcaMatricula> getCochesExpo(String id) throws NotExistsException {
-        boolean existe = true;
-        List<CocheOutputMarcaMatricula> cochesExpo = new ArrayList<>();
-        if (exposicionesYcoches.containsKey(id)) { //busca expo
-            HashMap<String, Coche> cochesExposicion = exposicionesYcoches.get(id); //hashmap con los coches de la expo
-            for (Coche coche : cochesExposicion.values()) { //recorre los coches
-                cochesExpo.add(CocheOutputMarcaMatricula.getCoche(coche)); //los añade a lista cocheOutput
+        if (exposicionesYcoches.containsKey(id)) {
+            HashMap<String, Coche> cochesExposicion = exposicionesYcoches.get(id);
+            List<CocheOutputMarcaMatricula> cochesExpo = new ArrayList<>();
+            for (Coche coche : cochesExposicion.values()) {
+                cochesExpo.add(CocheOutputMarcaMatricula.getCoche(coche));
             }
-            existe = false;
+            return cochesExpo;
         }
-        if (existe == true) throw new NotExistsException("La exposición no existe");
-        return cochesExpo;
+        else {
+            throw new NotExistsException("La exposición no existe");
+        }
     }
 
-    public void anyadirCocheAExpo(String id, CocheInput cocheInput) throws AlreadyExistsException, IsEmptyException, InvalidException, NullException, NotExistsException {
-        boolean existe = true;
-        Coche c = CocheInput.getCoche(cocheInput);
+    public void anyadirCocheAExpo(String id, CocheInput cocheInput) throws AlreadyExistsException, IsEmptyException, InvalidException, NullException, NotExistsException {        Coche c = CocheInput.getCoche(cocheInput);
         if (exposicionesYcoches.containsKey(id)) { //busca expo
             HashMap<String, Coche> cochesExposicion = exposicionesYcoches.get(id); //hashmap con los coches de la expo
             if (cochesExposicion.containsKey(cocheInput.getMatricula())) { //comprueba si el coche ya existe
                 throw new AlreadyExistsException("El coche ya existe");
             }
-            exposicionesYcoches.get(id).put(cocheInput.getMatricula(), c); //si no existe lo añade al hashmap de coches de la expo
-            existe = false;
+            cochesExposicion.put(cocheInput.getMatricula(), c); //si no existe lo añade al hashmap de coches de la expo
         }
-        if (existe == true) throw new NotExistsException("La exposición no existe");
+        if (!exposicionesYcoches.containsKey(id)) throw new NotExistsException("La exposición no existe");
     }
 
     public ExposicionOutputNombre updateExposicion(String id, ExposicionUpdate exposicionUpdate) throws NotExistsException, IsEmptyException, NullException {
